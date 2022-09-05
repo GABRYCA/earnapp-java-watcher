@@ -1,15 +1,17 @@
 # earnapp-java-watcher
-An Earnapp Discord Webhook that shows total earnings each hour, made for personal use, using my custom unofficial Earnapp API in Java. Also features MySQL support for my own earnapp-earnings-graphs.
+An Earnapp **Discord Webhook** that shows total earnings each hour, made for personal use, using my custom unofficial Earnapp API in Java. Also features MySQL support for my own _earnapp-earnings-graphs_.
 
 # Build:
-Run gradle build, then use the jar in your build/libs/ Folder with the name of "java-earnapp-watcher-X.X-SNAPSHOT-all.jar".
+Run `gradle build`, then find the jar in your `build/libs/` folder with the name of `java-earnapp-watcher-X.X-SNAPSHOT-all.jar`, make sure to use
+the jar with `-all` at the end of the name.
 
 # Run:
-To run the program, <b>You need Java 18 or higher</b>, then just run: 
-- java -jar java-earnapp-watcher-X.X-SNAPSHOT-all.jar
-Replacing X.X with the version of earnapp.
+To run the program, _**You need Java 18 or higher**_, then just run: 
+- `java -jar java-earnapp-watcher-X.X-SNAPSHOT-all.jar`
 
-Then edit your config.json with the required data, MySQL is option as well as the webhook (you may want to disable it for troubleshooting).
+Replacing `X.X` with the build version.
+
+Then edit your `config.json` with the required data, MySQL is optional as well as the webhooks (you may want to disable it for troubleshooting).
 
 
 # Features:
