@@ -4,7 +4,7 @@ An Earnapp **Discord Webhook** that shows total earnings each hour, made for per
 # Build:
 Download the repository by cloning it or downloading the .zip file, then open the earnapp-java-watcher folder.
 
-To build you can use your IDE or run ./gradlew build from the command line (not tested).
+To build you can use your IDE or run something like gradlew build from the command line (not tested).
 
 Run `gradle build`, then find the jar in your `build/libs/` folder with the name of `java-earnapp-watcher-X.X-SNAPSHOT-all.jar`, make sure to use
 the jar with `-all` at the end of the name.
