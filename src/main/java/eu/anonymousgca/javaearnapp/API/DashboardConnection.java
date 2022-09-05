@@ -19,6 +19,12 @@ public class DashboardConnection {
     private String xsrfToken;
 
     public JSONArray latestTraffic;
+
+    /**
+     * Constructor, needs oauth-refresh-token.
+     * @param oauthRefreshToken
+     * @throws IOException
+     */
     public DashboardConnection(String oauthRefreshToken) throws IOException {
         this.oauthRefreshToken = oauthRefreshToken;
         this.xsrfToken = getCSRF();
@@ -27,6 +33,12 @@ public class DashboardConnection {
         }
     }
 
+    /**
+     * Get data from the dashboard.
+     * @param path
+     * @return
+     * @throws IOException
+     */
     public JSONObject getDataURL(String path) throws IOException {
         URL url = new URL(baseURL + path + "?appid=earnapp_dashboard");
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -67,59 +79,129 @@ public class DashboardConnection {
         return jsonObject;
     }
 
+    /**
+     * Get downloads from the dashboard.
+     * @return
+     * @throws IOException
+     */
     public JSONObject getDownloads() throws IOException {
         return getDataURL("downloads");
     }
 
+    /**
+     * Get payments methods from the dashboard.
+     * @return
+     * @throws IOException
+     */
     public JSONObject getPaymentMethods() throws IOException {
         return getDataURL("payment_methods");
     }
 
+    /**
+     * Get UserData from the dashboard.
+     * @return
+     * @throws IOException
+     */
     public JSONObject getUserData() throws IOException {
         return getDataURL("user_data");
     }
 
+    /**
+     * Get devices from the dashboard.
+     * @return
+     * @throws IOException
+     */
     public JSONObject getDevices() throws IOException {
         return getDataURL("devices");
     }
 
+    /**
+     * Get transactions from the dashboard.
+     * @return
+     * @throws IOException
+     */
     public JSONObject getTransactions() throws IOException {
         return getDataURL("transactions");
     }
 
+    /**
+     * Get earnings from the dashboard.
+     * @return
+     * @throws IOException
+     */
     public JSONObject getMoney() throws IOException {
         return getDataURL("money");
     }
 
+    /**
+     * Get referrals from the dashboard.
+     * @return
+     * @throws IOException
+     */
     public JSONObject getReferrals() throws IOException {
         return getDataURL("referees");
     }
 
+    /**
+     * Get counters from the dashboard.
+     * @return
+     * @throws IOException
+     */
     public JSONObject getCounters() throws IOException {
         return getDataURL("counters");
     }
 
+    /**
+     * Get bonuses from the dashboard.
+     * @return
+     * @throws IOException
+     */
     public JSONObject getBonuses() throws IOException {
         return getDataURL("bonuses");
     }
 
+    /**
+     * Get notifies from the dashboard.
+     * @return
+     * @throws IOException
+     */
     public JSONObject getNotifies() throws IOException {
         return getDataURL("notifications");
     }
 
+    /**
+     * Get usage from the dashboard, NOTE: Returns null for some reasons.
+     * @return
+     * @throws IOException
+     */
     public JSONArray getUsage() throws IOException {
         getDataURL("usage");
         return latestTraffic;
     }
 
+    /**
+     * Get bVPN referrals.
+     * @return
+     * @throws IOException
+     */
     public JSONObject getBrightvpnReferrals() throws IOException {
         return getDataURL("referees_bvpn");
     }
 
+    /**
+     * Speedtest...
+     * @return
+     * @throws IOException
+     */
     public JSONObject getSpeedtest () throws IOException {
         return getDataURL("speedtest");
     }
 
+    /**
+     * Get CSRF token.
+     * @return
+     * @throws IOException
+     */
     public String getCSRF() throws IOException {
         CookieManager cookieManager = new CookieManager();
         CookieHandler.setDefault(cookieManager);

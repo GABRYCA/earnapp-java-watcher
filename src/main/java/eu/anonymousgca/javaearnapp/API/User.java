@@ -14,6 +14,11 @@ public class User {
     private String onboarding;
     private String locale;
 
+    /**
+     * Constructor, needs DashboardConnection, this is currently unused.
+     * @param dashboardConnection
+     * @throws IOException
+     */
     public User(DashboardConnection dashboardConnection) throws IOException {
         JSONObject userData = dashboardConnection.getUserData();
         this.multiplier = (double) userData.get("multiplier");

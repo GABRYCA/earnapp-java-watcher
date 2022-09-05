@@ -28,6 +28,7 @@ public class JsonConfigLoader {
             // If not, create it
             System.out.println("Config file not found, creating it...");
 
+            // Create a new JSONObject
             JSONObject config = new JSONObject();
             config.put("oauth-refresh-token", "YOUR_OAUTH_REFRESH_TOKEN");
             config.put("mysql-enabled", false);
@@ -51,14 +52,17 @@ public class JsonConfigLoader {
                 e.printStackTrace();
             }
 
+            // Exit program.
             System.out.println("Config file created! Please fill in the oauth-refresh-token in your config.json and restart the program!");
             System.exit(0);
         } else {
             // If yes, load it
             System.out.println("Config file found, loading it...");
 
+            // Load config
             FileReader fileReader = new FileReader(file.getName());
 
+            // Parse config
             JSONParser parser = new JSONParser();
             JSONObject config = null;
             try {
@@ -67,11 +71,13 @@ public class JsonConfigLoader {
                 e.printStackTrace();
             }
 
+            // If config is null, exit program.
             if (config == null) {
                 System.out.println("Config file is empty! Please fill in the oauth-refresh-token in your config.json and restart the program!");
                 System.exit(0);
             }
 
+            // Debug terminal message.
             System.out.println("Config file loaded!\n");
             System.out.println("Reading properties: ");
 
@@ -87,6 +93,7 @@ public class JsonConfigLoader {
             discordWebhookEnabled = (boolean) config.get("discord-webhook-enabled");
             discordWebhookUrl = (String) config.get("discord-webhook-url");
 
+            // Debug terminal message.
             System.out.println("Properties read with success!\n");
         }
     }
