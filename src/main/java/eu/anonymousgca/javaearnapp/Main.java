@@ -76,6 +76,15 @@ public class Main {
         }
     }
 
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
+    }
+
     /**
      * Check earnings each hour as a task.
      */
@@ -103,7 +112,7 @@ public class Main {
 
         // Debug message visible on the terminal.
         if (counterChecks != 0) {
-            System.out.println("Money earned since last check: " + moneyEarnedDifference);
+            System.out.println("Money earned since last check: " + round(moneyEarnedDifference,2));
         } else {
             System.out.println("Money earned since last check: 0");
             moneyEarnedDifference = 0;
@@ -111,7 +120,8 @@ public class Main {
 
         // Update previous money earned and also calculate the about used bandiwdth.
         previousMoneyEarned = moneyEarned;
-        double sketchyBandwidthUsage = (1024 * (moneyEarnedDifference/100.000)) / valueGB;
+        double sketchyBandwidthUsage = round((1024 * (moneyEarnedDifference/100.000)) / valueGB, 2);
+        moneyEarnedDifference = round(moneyEarnedDifference, 2); // 0.012334542 whatever -> 0.01
         counterChecks++;
 
         // If MySQL is enabled, insert the data into the database.

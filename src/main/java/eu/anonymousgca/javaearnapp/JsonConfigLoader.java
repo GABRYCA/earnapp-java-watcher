@@ -15,6 +15,7 @@ public class JsonConfigLoader {
     private String mysqlUsername;
     private String mysqlPassword;
 
+    //TODO value per GB from dashboard.
     private double valuePerGB;
 
     private boolean discordWebhookEnabled;
