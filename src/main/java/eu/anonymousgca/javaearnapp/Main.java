@@ -121,7 +121,7 @@ public class Main {
 
         // Update previous money earned and also calculate the about used bandiwdth.
         previousMoneyEarned = moneyEarned;
-        double sketchyBandwidthUsage = round((1024 * (moneyEarnedDifference/100.000)) / valueGB, 2);
+        double sketchyBandwidthUsage = round((1024 * moneyEarnedDifference) / valueGB, 2);
         moneyEarnedDifference = round(moneyEarnedDifference, 2); // 0.012334542 whatever -> 0.01
         counterChecks++;
 
