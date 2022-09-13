@@ -156,6 +156,9 @@ public class Main {
                     .addField("Bandwidth usage: ", sketchyBandwidthUsage + "MB", false)
                     .setFooter("JavaEarnApp by AnonymousGCA/GABRYCA", "https://avatars.githubusercontent.com/u/39743848?s=40&v=4")
                     .setColor(new java.awt.Color(255, 70, 0));
+            if (moneyEarnedDifference > 0.00){
+                embedObject.setColor(new java.awt.Color(0, 255, 0));
+            }
             webhook.addEmbed(embedObject);
             try {
                 webhook.execute();
