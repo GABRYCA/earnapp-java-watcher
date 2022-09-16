@@ -46,6 +46,27 @@ public class Main {
             DB_USERNAME = jsonConfigLoader.getMysqlUsername();
             DB_PASSWORD = jsonConfigLoader.getMysqlPassword();
             getConnection();
+            // If failed to login, try to connect to DB_URL without database.
+            if (!jsonConfigLoader.isMysqlEnabled()) {
+                System.out.println("Failed to connect to database, trying to connect to database without database...");
+                DB_URL = "jdbc:mysql://" + jsonConfigLoader.getMysqlHost() + ":" + jsonConfigLoader.getMysqlPort();
+                getConnection();
+                // If failed to login, disable MySQL.
+                if (!jsonConfigLoader.isMysqlEnabled() || mySQLConnection == null) {
+                    System.out.println("Failed to connect to database, disabling MySQL...");
+                    jsonConfigLoader.setMysqlEnabled(false);
+                } else {
+                    System.out.println("Connected to database without database!" +
+                            "\nCreating one...");
+                    createDatabase();
+                }
+            }
+            if (jsonConfigLoader.isMysqlEnabled()) {
+                // Create table if not exists.
+                createTable();
+                // Reset DB_URL to default.
+                DB_URL = "jdbc:mysql://" + jsonConfigLoader.getMysqlHost() + ":" + jsonConfigLoader.getMysqlPort() + "/" + jsonConfigLoader.getMysqlDatabase();
+            }
         }
 
         // Run each hour a task to check the dashboard, earnings etc...
@@ -55,6 +76,36 @@ public class Main {
 
         // Debug message.
         System.out.println("\nProgram is running!\n");
+    }
+
+    private static boolean createDatabase() {
+        try {
+            System.out.println("Creating database...");
+            Statement statement = mySQLConnection.createStatement();
+            statement.executeUpdate("CREATE DATABASE IF NOT EXISTS " + jsonConfigLoader.getMysqlDatabase());
+            statement.close();
+            System.out.println("CREATE DATABASE IF NOT EXISTS " + jsonConfigLoader.getMysqlDatabase());
+            System.out.println("Database created!");
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private static boolean createTable() {
+        try {
+            System.out.println("Creating table if not existing...");
+            Statement statement = mySQLConnection.createStatement();
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS earnings (time datetime, traffic double, earnings double)");
+            statement.close();
+            System.out.println("CREATE TABLE IF NOT EXISTS earnings (time datetime, traffic double, earnings double)");
+            System.out.println("Table created only if wasn't already!");
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     /**
@@ -69,6 +120,7 @@ public class Main {
 
             if (mySQLConnection != null) {
                 System.out.println("Connected to MySQL database!");
+                jsonConfigLoader.setMysqlEnabled(true);
             } else {
                 System.out.println("Failed to connect to MySQL database!");
                 jsonConfigLoader.setMysqlEnabled(false); // Disable MySQL.
